@@ -24,10 +24,10 @@ export default function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <Topbar />
-          <main>
+          <main className="flex flex-row">
             <LeftSidebar />
             <section className='main-container'>
-              <div className='w-full max-w-full'>
+              <div className='w-full max-w-4xl'>
                 {children}
               </div>
             </section>
