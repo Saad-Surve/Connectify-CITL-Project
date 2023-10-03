@@ -154,6 +154,7 @@ import { usePathname, useRouter } from "next/navigation";
                    {...field}
                  />
                </FormControl>
+              <FormMessage />
              </FormItem>
            )}
          />
@@ -173,6 +174,7 @@ import { usePathname, useRouter } from "next/navigation";
                    {...field}
                  />
                </FormControl>
+               <FormMessage />
              </FormItem>
            )}
          />
@@ -192,6 +194,7 @@ import { usePathname, useRouter } from "next/navigation";
                    {...field}
                  />
                </FormControl>
+               <FormMessage />
              </FormItem>
            )}
          />
