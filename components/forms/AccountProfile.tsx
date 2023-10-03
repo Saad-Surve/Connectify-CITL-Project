@@ -199,7 +199,7 @@ import { usePathname, useRouter } from "next/navigation";
            )}
          />
 
-         <Button type="submit" className="">Submit</Button>
+         <Button type="submit" className="bg-primary-500">Submit</Button>
        </form>
      </Form>
   )
