@@ -5,31 +5,25 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req : NextRequest, res:NextApiResponse) {
-  console.log( await req.json())
-    // const { userId, username, name, bio, image, path } = req.body;
+export async function PUT(req : Request, res:Response) {
+    const body = await req.json()
+    const { userId, username, name, bio, image, path } = body;
 
-    // try {
-    //   connectToDB();
-    //   await User.findOneAndUpdate(
-    //     { id: userId },
-    //     {
-    //       username: username.toLowerCase(),
-    //       name,
-    //       bio,
-    //       image,
-    //       onboarded: true,
-    //     },
-    //     { upsert: true }
-    //   );
-
-    //   if (path === "/profile/edit") {
-    //     revalidatePath(path);
-    //   }
-
-    //   NextResponse.json({ message: "User updated successfully" }).ok;
-    // } catch (error:any) {
-    //   console.log(error.message)
-    //   // res.status(500).json({ message: `Failed to create/update user: ${error.message}` });
-    // }
+    try {
+      connectToDB();
+      await User.findOneAndUpdate(
+        { id: userId },
+        {
+          username: username.toLowerCase(),
+          name,
+          bio,
+          image,
+          onboarded: true,
+        },
+        { upsert: true }
+      );
+      return NextResponse.json({ message: "User updated successfully" },{status:200});
+    } catch (error:any) {
+      return NextResponse.json({ message: `Failed to create/update user: ${error.message}` },{status:500})
+    }
 } 
