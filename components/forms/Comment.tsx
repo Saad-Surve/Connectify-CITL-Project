@@ -38,7 +38,6 @@ const Comment = ({threadId, currentUserImg, currentUserId}:Props) => {
     await addCommentToThread(threadId, values.thread, JSON.parse(currentUserId), pathname);
     form.reset();
   }
-  console.log(currentUserId)
   return(
     <Form {...form}>
       <form

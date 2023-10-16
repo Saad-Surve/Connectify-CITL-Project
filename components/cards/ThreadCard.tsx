@@ -37,7 +37,6 @@ const ThreadCard = ({
     comments,
     isComment
 }: Props) => {
-    console.log(author.name);
   return (
     <article className={`flex flex-col w-full rounded-xl ${isComment? 'px:0 xs: px-7' : 'bg-dark-2 p-7 '}`}>
         <div className='flex items-start justify-between'>
@@ -69,7 +68,7 @@ const ThreadCard = ({
                             <Link href={`/thread/${id}`} >
                                 <Image src="/assets/reply.svg" alt="reply" width={24} height={24} className="cursor-pointer object-contain" />
                             </Link>
-                            <Image src="/assets/repost.svg" alt="repost" width={24} height={24} className="cursor-pointer object-contain" />
+                            {/* <Image src="/assets/repost.svg" alt="repost" width={24} height={24} className="cursor-pointer object-contain" /> */}
                             <Image src="/assets/share.svg" alt="share" width={24} height={24} className="cursor-pointer object-contain" />
                         </div>
 
