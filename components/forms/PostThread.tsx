@@ -16,6 +16,8 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import * as z from "zod";
 import {Textarea} from "@/components/ui/textarea";
 import { usePathname, useRouter } from "next/navigation";
+import { ThreadValidation } from "@/lib/validations/thread";
+import { createThread } from "@/lib/actions/thread.actions";
 
 interface Props {
  user: {
@@ -29,8 +31,6 @@ interface Props {
  btnTitle: string;
 }
 
-import { ThreadValidation } from "@/lib/validations/thread";
-import { createThread } from "@/lib/actions/thread.actions";
 
 
 function PostThread({userId}:{userId:string}){
