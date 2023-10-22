@@ -5,6 +5,7 @@ import { SignOutButton, SignedIn, useAuth } from "@clerk/nextjs"
 import Image from "next/image"
 import Link from "next/link"
 import {usePathname, useRouter} from 'next/navigation'
+import DarkModeButton from "../ui/DarkMode"
 
 function LeftSidebar() {
   const pathname = usePathname();
@@ -29,7 +30,7 @@ function LeftSidebar() {
               width={20}
               height={20}/>
 
-              <p className="text-light-1 max-lg:hidden">{link.label}</p>
+              <p className="dark:text-light-1 max-lg:hidden">{link.label}</p>
             </Link>
           )})}
       </div>
@@ -42,7 +43,7 @@ function LeftSidebar() {
                   alt="logout"
                   height={24}
                   width={24}/>
-                <p className="text-light-2 max-lg:hidden">Logout</p>
+                <p className=" dark:text-light-2 max-lg:hidden">Logout</p>
               </div>
             </SignOutButton>
           </SignedIn>
