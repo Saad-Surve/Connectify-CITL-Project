@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.cl-internal-vwxx4q{
+    background-color: rgb(134, 66, 255);
+}
+.cl-internal-t2u2yf{
+    background-color: rgb(134, 66, 255);
+    transition: all 0.3s ease-in-out;
+}
+.cl-internal-t2u2yf:hover{
+    background-color:black;
+    color: white;
+}
+
+
+.cl-internal-a1vcu4{
+    color: rgb(134, 66, 255);
+}
+
 @layer components {
     /* main */
     .main-container {
@@ -75,7 +93,7 @@
     }
 
     .leftsidebar {
-        @apply sticky left-0 top-0 z-20 flex h-screen w-fit flex-col justify-between overflow-auto border-r border-r-dark-4 bg-dark-2 pb-5 pt-28 max-md:hidden;
+        @apply sticky left-0 top-0 z-20 flex h-screen w-fit flex-col justify-between overflow-auto border-r border-r-dark-4 dark:bg-dark-2 pb-5 pt-28 max-md:hidden;
     }
 
     .leftsidebar_link {

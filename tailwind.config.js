@@ -7,6 +7,12 @@ module.exports = {
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
   ],
+  variants: {
+    extend: {
+      backgroundColor: ['dark'],
+      textColor: ['dark']
+    },
+  },
   theme: {
     container: {
       center: true,
