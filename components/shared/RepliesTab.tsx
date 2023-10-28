@@ -1,4 +1,4 @@
-import { fetchUserPosts } from "@/lib/actions/user.actions";
+import { fetchUserReplies } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
 import ThreadCard from "../cards/ThreadCard";
 
@@ -8,13 +8,14 @@ interface Props{
   accountType: string;
 }
 
-const ThreadsTab = async ({currentUserId, accountId, accountType}: Props) => {
-  let result = await fetchUserPosts(accountId);
+const RepliesTab = async ({currentUserId, accountId, accountType}: Props) => {
+  let result = await fetchUserReplies(accountId);
   if(!result) redirect('/')
 
   return(
     <section className="mt-9 flex flex-col gap-10">
-      {result.threads.map((thread: any) => (
+      {result.replies.map((thread: any) => (
+        <>
         <ThreadCard
           key={thread._id}
           id={thread._id}
@@ -29,11 +30,12 @@ const ThreadsTab = async ({currentUserId, accountId, accountType}: Props) => {
           community={thread.community}
           createdAt={thread.createdAt}
           comments={thread.children}
-          isReposted
+          isReply
         />
+        </>
         ))}
     </section>
   )
 }
 
-export default ThreadsTab
+export default RepliesTab

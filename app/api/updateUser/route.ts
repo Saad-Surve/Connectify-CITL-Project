@@ -5,7 +5,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function PUT(req : Request, res:Response) {
+export async function PUT(req : Request) {
     const body = await req.json()
     const { userId, username, name, bio, image, path } = body;
 

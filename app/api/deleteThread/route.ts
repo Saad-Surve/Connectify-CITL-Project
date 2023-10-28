@@ -5,20 +5,18 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function DELETE(req: NextApiRequest, res: NextApiResponse) {
-  const { threadId } = req.query; // Assuming the threadId is passed as a query parameter
+export async function DELETE(req: NextApiRequest) {
+  const { threadId } = req.query; 
 
   try {
     connectToDB();
 
-    // Find the thread by ID and delete it
     const deletedThread = await Thread.findByIdAndDelete(threadId);
 
     if (!deletedThread) {
       return NextResponse.json({ message: "Thread not found" }, { status: 404 });
     }
 
-    // Remove the reference to the deleted thread from the user
     await User.findByIdAndUpdate(deletedThread.author, {
       $pull: { threads: threadId },
     });

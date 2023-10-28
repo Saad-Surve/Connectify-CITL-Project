@@ -6,7 +6,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req : Request, res:Response) {
+export async function POST(req : Request) {
     const body = await req.json()
     const { text, author, communityId } = body;
 

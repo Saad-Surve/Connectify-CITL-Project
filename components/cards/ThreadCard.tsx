@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from "next/image";
 import React from 'react'
-
+import * as Dialog from '@radix-ui/react-dialog'
 interface Props{
 id:string;
 currentUserId:string;
@@ -24,6 +24,8 @@ comments: {
     }
 }[]
 isComment?:boolean;
+isReply?:boolean;
+isReposted?:boolean;
 }
 
 const ThreadCard = ({
@@ -35,15 +37,20 @@ const ThreadCard = ({
     community,
     createdAt,
     comments,
-    isComment
+    isComment,
+    isReply,
+    isReposted
 }: Props) => {
   return (
     <article className={`flex flex-col w-full rounded-xl ${isComment? 'px:0 xs: px-7' : 'bg-dark-2 p-7 '}`}>
-        <div className='flex items-start justify-between'>
+        <div className='flex flex-col gap-5 items-start justify-between'>
+        {isReply && (<p className='text-xl'>Replying to <Link href={`/thread/${parentId}`} className='text-primary-500'>thread</Link></p>)}
+        
+        {isReposted && (<p className='text-xl'>Reposted by <Link href={`/profile/${author.id}`} className='text-primary-500'>{author.name}</Link></p>)}
+
             <div className='flex flex-1 flex-row w-full gap-4'>
                 <div className='flex flex-col items-center'>
                     <Link href={`/profile/${author.id}`} className='relative w-11 h-11'>
-                        {/* <img src={author.image}/> */}
                         <Image
                             src={author?.image}
                             alt='Profile image'
@@ -68,7 +75,7 @@ const ThreadCard = ({
                             <Link href={`/thread/${id}`} >
                                 <Image src="/assets/reply.svg" alt="reply" width={24} height={24} className="cursor-pointer object-contain" />
                             </Link>
-                            <Image src="/assets/repost.svg" alt="repost" width={24} height={24} className="cursor-pointer object-contain" />
+                                <Image src="/assets/repost.svg" alt="repost" width={24} height={24} className="cursor-pointer object-contain" />
                             <Image src="/assets/share.svg" alt="share" width={24} height={24} className="cursor-pointer object-contain" />
                         </div>
 
@@ -84,6 +91,8 @@ const ThreadCard = ({
                 </div>
             </div>
         </div>
+    
+
     </article>
   )
 }

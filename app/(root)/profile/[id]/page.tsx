@@ -9,6 +9,7 @@ import ProfileHeader from "@/components/shared/ProfileHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { fetchUser } from "@/lib/actions/user.actions";
+import RepliesTab from "@/components/shared/RepliesTab";
 
 async function Page({ params }: { params: { id: string } }) {
   const user = await currentUser();
@@ -47,6 +48,11 @@ async function Page({ params }: { params: { id: string } }) {
                     {userInfo.threads.length}
                   </p>
                 )}
+                      {tab.label === "Replies" && (
+                  <p className='ml-1 rounded-sm bg-light-4 px-2 py-1 !text-tiny-medium text-light-2'>
+                    {userInfo.replies.length}
+                  </p>
+                )}
               </TabsTrigger>
             ))}
           </TabsList>
@@ -56,12 +62,24 @@ async function Page({ params }: { params: { id: string } }) {
               value={tab.value}
               className='w-full text-light-1'
             >
-              {/* @ts-ignore */}
-              <ThreadsTab
+             {
+              tab.label === 'Threads' && (
+                <ThreadsTab
                 currentUserId={user.id}
                 accountId={userInfo.id}
                 accountType='User'
               />
+              ) }
+              {
+              tab.label === "Replies" && (
+                <RepliesTab
+                currentUserId={user.id}
+                accountId={userInfo.id}
+                accountType='User'/>
+              )
+              } 
+              
+              
             </TabsContent>
           ))}
         </Tabs>

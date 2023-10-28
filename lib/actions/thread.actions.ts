@@ -92,7 +92,7 @@ export async function addCommentToThread(
 
     try {
         const originalThread = await Thread.findById(threadId);
-
+        const user = await User.findById(userId);
         if (!originalThread){
             throw new Error("Thread not found")
         }
@@ -106,6 +106,8 @@ export async function addCommentToThread(
         const savedCommentThread = await commentThread.save();
         originalThread.children.push(savedCommentThread._id);
 
+        user.replies.push(savedCommentThread._id);
+        await user.save();
         await originalThread.save();
         revalidatePath(path);
 
