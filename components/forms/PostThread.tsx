@@ -1,6 +1,5 @@
 "use client"
 import {useForm} from "react-hook-form";
-import { Button } from "@/components/ui/button"
 import Image from "next/image";
 import {
   Form,
@@ -19,6 +18,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { ThreadValidation } from "@/lib/validations/thread";
 import { createThread } from "@/lib/actions/thread.actions";
 import { useOrganization } from "@clerk/nextjs";
+import { Button } from "@nextui-org/react";
+import { useState } from "react";
 
 interface Props {
  user: {
@@ -44,9 +45,11 @@ function PostThread({userId}:{userId:string}){
             accountId:userId
         }
     })
+    const [isLoading, setIsLoading] = useState(false)
     const { organization } = useOrganization()
 
     const  onSubmit = async ( values : z.infer<typeof ThreadValidation> ) => {
+        setIsLoading(true)
          await createThread({
             text : values.thread,
             author: userId,
@@ -54,6 +57,7 @@ function PostThread({userId}:{userId:string}){
             path : pathname
          })
          router.push('/')
+         setIsLoading(false)
     }
 
     return(
@@ -82,8 +86,8 @@ function PostThread({userId}:{userId:string}){
                             </FormItem>
                         )}
                         />
-                    <Button className="bg-primary-500" type="submit">
-                        Post Thread
+                    <Button className="bg-primary-500 hover:bg-primary-300" isLoading={isLoading} type="submit">
+                       {!isLoading?'Post Thread':'Posting...'}
                     </Button>
                 </form>
             </Form>
