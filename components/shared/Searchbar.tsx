@@ -26,7 +26,6 @@ function Searchbar({ routeType }: Props) {
 
     return () => clearTimeout(delayDebounceFn);
   }, [search, routeType]);
-console.log(routeType)
   return (
     <div className='searchbar'>
       <Image

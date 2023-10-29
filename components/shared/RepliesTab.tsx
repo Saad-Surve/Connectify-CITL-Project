@@ -11,7 +11,6 @@ interface Props{
 const RepliesTab = async ({currentUserId, accountId, accountType}: Props) => {
   let result = await fetchUserReplies(accountId);
   if(!result) redirect('/')
-  console.log(result)
 
   return(
     <section className="mt-9 flex flex-col gap-10">
