@@ -25,7 +25,7 @@ const RepliesTab = async ({currentUserId, accountId, accountType}: Props) => {
           author={
             accountType === "User"
               ?   {name: result.name, image: result.image , id: result.id}:
-              {name: thread.authot.name, image: thread.author.image , id: thread.author.id}
+              {name: thread.author.name, image: thread.author.image , id: thread.author.id}
           }
           community={thread.community}
           createdAt={thread.createdAt}

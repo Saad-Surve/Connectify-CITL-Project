@@ -2,6 +2,8 @@
 
 import { ThemeProvider } from 'next-themes'
 import { useState,useEffect } from 'react'
+import {NextUIProvider} from '@nextui-org/react'
+
 
 export function Providers({ children } : {children: React.ReactNode}) {
     const [mounted, setMounted] = useState(false)
@@ -13,5 +15,11 @@ export function Providers({ children } : {children: React.ReactNode}) {
         return <>{children}</>
     }
     
-    return <ThemeProvider>{children}</ThemeProvider>
+    return (
+      <NextUIProvider>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
+      </NextUIProvider>
+    )
 }

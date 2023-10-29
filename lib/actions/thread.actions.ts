@@ -211,7 +211,7 @@ export async function addCommentToThread(
   try {
     // Find the original thread by its ID
     const originalThread = await Thread.findById(threadId);
-
+    const user = await User.findById(userId);
     if (!originalThread) {
       throw new Error("Thread not found");
     }
@@ -228,7 +228,8 @@ export async function addCommentToThread(
 
     // Add the comment thread's ID to the original thread's children array
     originalThread.children.push(savedCommentThread._id);
-
+    user.replies.push(savedCommentThread._id);
+    await user.save();
     // Save the updated original thread to the database
     await originalThread.save();
 

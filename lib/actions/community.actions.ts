@@ -1,6 +1,6 @@
 "use server";
 
-import { FilterQuery, SortOrder } from "mongoose";
+import { FilterQuery, ObjectId, SortOrder } from "mongoose";
 
 import Community from "../models/community.model";
 import Thread from "../models/thread.models";
@@ -52,7 +52,6 @@ export async function createCommunity(
 export async function fetchCommunityDetails(id: string) {
   try {
     connectToDB();
-
     const communityDetails = await Community.findOne({id:id}).populate([
       "createdBy",
       {
@@ -68,6 +67,7 @@ export async function fetchCommunityDetails(id: string) {
     throw error;
   }
 }
+
 
 export async function fetchCommunityPosts(id: string) {
   try {

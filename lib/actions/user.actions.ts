@@ -30,6 +30,31 @@ interface Params {
   image: string;
   path: string;
 }
+export async function fetchUserReplies(userId: string) {
+  try {
+    connectToDB();
+
+    const threads = await User.findOne({ id: userId }).populate({
+      path: "replies",
+      model: Thread,
+      populate: 
+        {
+          path: "children",
+          model: Thread,
+          populate: {
+            path: "author",
+            model: User,
+            select: "name image id", 
+          },
+        },
+    });
+    return threads;
+  } catch (error) {
+    console.error("Error fetching user threads:", error);
+    throw error;
+  }
+}
+
 
 export async function updateUser({
   userId,

@@ -30,7 +30,7 @@ function LeftSidebar() {
               width={20}
               height={20}/>
 
-              <p className=" dark:text-light-1 max-lg:hidden">{link.label}</p>
+              <p className=" text-light-1 max-lg:hidden">{link.label}</p>
             </Link>
           )})}
           {/* <DarkModeButton /> */}
@@ -44,7 +44,7 @@ function LeftSidebar() {
                   alt="logout"
                   height={24}
                   width={24}/>
-                <p className=" dark:text-light-2 max-lg:hidden">Logout</p>
+                <p className=" text-light-2 max-lg:hidden">Logout</p>
               </div>
             </SignOutButton>
           </SignedIn>
