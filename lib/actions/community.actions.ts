@@ -53,7 +53,7 @@ export async function fetchCommunityDetails(id: string) {
   try {
     connectToDB();
 
-    const communityDetails = await Community.findOne({ id }).populate([
+    const communityDetails = await Community.findOne({id:id}).populate([
       "createdBy",
       {
         path: "members",
@@ -61,7 +61,6 @@ export async function fetchCommunityDetails(id: string) {
         select: "name username image _id id",
       },
     ]);
-
     return communityDetails;
   } catch (error) {
     // Handle any errors
