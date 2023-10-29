@@ -173,7 +173,9 @@ function ThreadCard({
             height={14}
             className='ml-1 rounded-full object-cover'
             />
-            {community && ` - ${community.name} Community`}
+            <p className='mt-1 text-subtle-medium text-gray-1'>
+                {community && ` - ${community.name} Community`}
+            </p>
         </Link>
       )}
     </article>
