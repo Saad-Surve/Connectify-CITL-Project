@@ -3,6 +3,8 @@ import Link from "next/link";
 
 import { formatDateString } from "@/lib/utils";
 import DeleteThread from "../forms/DeleteThread";
+import LikeThread from "../forms/LikeThread";
+import ShareButton from "../forms/ShareButton";
 
 interface Props {
   id: string;
@@ -42,7 +44,9 @@ function ThreadCard({
   isComment,
   isReply,
   isReposted
-}: Props) {
+}: Props) 
+{
+
   return (
     <article
       className={`flex w-full flex-col rounded-xl ${
@@ -90,12 +94,9 @@ function ThreadCard({
 
             <div className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}>
               <div className='flex gap-3.5'>
-                <Image
-                  src='/assets/heart-gray.svg'
-                  alt='heart'
-                  width={24}
-                  height={24}
-                  className='cursor-pointer object-contain'
+                <LikeThread 
+                  threadId={JSON.stringify(id)}
+                  currentUserId={currentUserId}
                 />
                 <Link href={`/thread/${id}`}>
                   <Image
@@ -113,13 +114,10 @@ function ThreadCard({
                   height={24}
                   className='cursor-pointer object-contain'
                 />
-                <Image
-                  src='/assets/share.svg'
-                  alt='heart'
-                  width={24}
-                  height={24}
-                  className='cursor-pointer object-contain'
+                <ShareButton
+                  
                 />
+                
               </div>
 
               {isComment && comments.length > 0 && (
