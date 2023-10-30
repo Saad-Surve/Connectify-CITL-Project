@@ -5,6 +5,7 @@ import { formatDateString } from "@/lib/utils";
 import DeleteThread from "../forms/DeleteThread";
 import LikeThread from "../forms/LikeThread";
 import ShareButton from "../forms/ShareButton";
+import RepostButton from "../forms/repostButton";
 
 interface Props {
   id: string;
@@ -30,6 +31,7 @@ interface Props {
   isComment?: boolean;
   isReply?: boolean;
   isReposted?: boolean;
+  name?:string
 }
 
 function ThreadCard({
@@ -43,7 +45,8 @@ function ThreadCard({
   comments,
   isComment,
   isReply,
-  isReposted
+  isReposted,
+  name
 }: Props) 
 {
 
@@ -56,7 +59,7 @@ function ThreadCard({
       <div className='flex flex-col items-start justify-between'>
       {isReply && (<p className='pb-6 text-xl'>Replying to <Link href={`/thread/${parentId}`} className='text-primary-500'>thread</Link></p>)}
         
-        {isReposted && (<p className='text-xl'>Reposted by <Link href={`/profile/${author.id}`} className='text-primary-500'>{author.name}</Link></p>)}
+        {isReposted && (<p className='text-xl'>Reposted by <Link href={`/profile/${currentUserId}`} className='text-primary-500'>{author.name}</Link></p>)}
         <div className='flex w-full flex-1 flex-row gap-4'>
             <div>
 
@@ -107,12 +110,10 @@ function ThreadCard({
                     className='cursor-pointer object-contain'
                   />
                 </Link>
-                <Image
-                  src='/assets/repost.svg'
-                  alt='heart'
-                  width={24}
-                  height={24}
-                  className='cursor-pointer object-contain'
+                <RepostButton 
+                text={content}
+                repostedBy={currentUserId}
+                author={author.id}
                 />
                 <ShareButton
                   

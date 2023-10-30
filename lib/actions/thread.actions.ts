@@ -53,6 +53,7 @@ interface Params {
   author: string,
   communityId: string | null,
   path: string,
+  repostedBy? : string,
 }
 
 export async function createThread({ text, author, communityId, path }: Params
@@ -239,3 +240,36 @@ export async function addCommentToThread(
     throw new Error("Unable to add comment");
   }
 }
+
+export async function repostThread({ text, author, repostedBy, path }: Params
+  ) {
+    try {
+      connectToDB();
+      const user = await User.findOne({id:author})
+      const createdThread = await Thread.create({
+        text,
+        author : user._id,
+        community: null, // Assign communityId if provided, or leave it null for personal account
+        isReposted : true
+      });
+      // console.log({
+      //   text,
+      //   author : user._id,
+      //   community: null, // Assign communityId if provided, or leave it null for personal account
+      //   isReposted : true
+      // }, user)
+  
+      console.log(repostedBy)
+      // Update User model
+      
+      const repostuser = await User.findOne({id:repostedBy})
+      await User.findByIdAndUpdate(repostuser._id, {
+        $push: { threads: createdThread._id },
+      });
+
+
+      revalidatePath(path);
+    } catch (error: any) {
+      throw new Error(`Failed to create thread: ${error.message}`);
+    }
+  }

@@ -109,9 +109,14 @@ export async function fetchUserPosts(userId: string) {
             model: User,
             select: "name image id", // Select the "name" and "_id" fields from the "User" model
           },
-        },
+        },{
+          path:'author',
+          model:User,
+          select:"name image id"
+        }
       ],
     });
+    console.log(threads)
     return threads;
   } catch (error) {
     console.error("Error fetching user threads:", error);
