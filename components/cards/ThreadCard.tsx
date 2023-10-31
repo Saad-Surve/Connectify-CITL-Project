@@ -31,7 +31,9 @@ interface Props {
   isComment?: boolean;
   isReply?: boolean;
   isReposted?: boolean;
-  name?:string
+  name?:string;
+  repostedBy?:string;
+  repostedByUserId?:string;
 }
 
 function ThreadCard({
@@ -46,7 +48,9 @@ function ThreadCard({
   isComment,
   isReply,
   isReposted,
-  name
+  name,
+  repostedBy,
+  repostedByUserId,
 }: Props) 
 {
 
@@ -54,12 +58,12 @@ function ThreadCard({
     <article
       className={`flex w-full flex-col rounded-xl ${
         isComment ? "px-0 xs:px-7" : "bg-dark-2 p-7"
-      }`}
+      } mb-4`}
     >
       <div className='flex flex-col items-start justify-between'>
       {isReply && (<p className='pb-6 text-xl'>Replying to <Link href={`/thread/${parentId}`} className='text-primary-500'>thread</Link></p>)}
         
-        {isReposted && (<p className='text-xl'>Reposted by <Link href={`/profile/${currentUserId}`} className='text-primary-500'>{author.name}</Link></p>)}
+        {isReposted && (<p className='text-xl mb-4'>Reposted by <Link href={`/profile/${repostedByUserId}`} className='text-primary-500'>{repostedBy}</Link></p>)}
         <div className='flex w-full flex-1 flex-row gap-4'>
             <div>
 
@@ -116,7 +120,7 @@ function ThreadCard({
                 author={author.id}
                 />
                 <ShareButton
-                  
+                  threadId={JSON.stringify(id).substring(1,25)}
                 />
                 
               </div>
@@ -144,7 +148,7 @@ function ThreadCard({
               alt={`user_${index}`}
               width={24}
               height={24}
-              className={`${index !== 0 && "-ml-5"} rounded-full object-cover`}
+              className={`${index !== 0 && "-ml-5"} aspect-square rounded-full overflow-hidden object-cover`}
             />
           ))}
 

@@ -6,14 +6,13 @@ import { usePathname, useRouter } from "next/navigation";
 import { deleteThread } from "@/lib/actions/thread.actions";
 
 
-function ShareButton() {
-const threadId = 's'
+function ShareButton({threadId:id}:{threadId:string}) {
   const shareUrl = () => {
         if (navigator.share) {
           navigator
             .share({
               title: document.title,
-              url: `${window.location.href}/thread/${threadId}`
+              url: `https://connectify-citl-project.vercel.app/thread/${id}`
             })
             .then(() => console.log('Share was successful.'))
             .catch((error) => console.log('Sharing failed', error));

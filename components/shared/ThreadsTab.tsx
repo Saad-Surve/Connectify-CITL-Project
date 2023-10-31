@@ -20,7 +20,9 @@ const ThreadsTab = async ({currentUserId, accountId, accountType}: Props) => {
   if(!result) redirect('/')
   return(
     <section className="mt-9 flex flex-col gap-10">
-      {result.threads.map((thread: any) => (
+      {result.threads.sort((a:any,b:any)=>{
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      }).map((thread: any) => (
         <ThreadCard
           key={thread._id}
           id={thread._id}
@@ -37,6 +39,8 @@ const ThreadsTab = async ({currentUserId, accountId, accountType}: Props) => {
           comments={thread.children}
           isReposted={thread.isReposted}
           name={result.name}
+          repostedBy={thread.repostedBy}
+          repostedByUserId={thread.repostedByUserId}
         />
         ))}
     </section>

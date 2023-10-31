@@ -25,7 +25,8 @@ const threadSchema = new mongoose.Schema({
         }
     ],
     isReposted : Boolean,
-    repostedBy:String
+    repostedBy:String,
+    repostedByUserId:String
 });
 
 const Thread = mongoose.models.Thread || mongoose.model("Thread", threadSchema);

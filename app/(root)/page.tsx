@@ -26,6 +26,10 @@ export default async function Home() {
                     community={post.community}
                     createdAt={post.createdAt}
                     comments={post.children}
+                    isReposted={post.isReposted}
+                    name={post.name}
+                    repostedBy={post.repostedBy}
+                    repostedByUserId={post.repostedByUserId}
                   />
               ))}
             </>

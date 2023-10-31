@@ -115,8 +115,7 @@ export async function fetchUserPosts(userId: string) {
           select:"name image id"
         }
       ],
-    });
-    console.log(threads)
+    })
     return threads;
   } catch (error) {
     console.error("Error fetching user threads:", error);

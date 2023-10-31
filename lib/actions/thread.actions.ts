@@ -54,9 +54,10 @@ interface Params {
   communityId: string | null,
   path: string,
   repostedBy? : string,
+  createdAt?: Date,
 }
 
-export async function createThread({ text, author, communityId, path }: Params
+export async function createThread({ text, author, communityId, path,createdAt }: Params
 ) {
   try {
     connectToDB();
@@ -70,6 +71,7 @@ export async function createThread({ text, author, communityId, path }: Params
       text,
       author,
       community: communityIdObject, // Assign communityId if provided, or leave it null for personal account
+      createdAt:Date
     });
 
     // Update User model
@@ -246,23 +248,19 @@ export async function repostThread({ text, author, repostedBy, path }: Params
     try {
       connectToDB();
       const user = await User.findOne({id:author})
+      const repostuser = await User.findOne({id:repostedBy})
+
       const createdThread = await Thread.create({
         text,
         author : user._id,
         community: null, // Assign communityId if provided, or leave it null for personal account
-        isReposted : true
+        isReposted : true,
+        repostedBy:repostuser.name,
+        repostedByUserId:repostuser.id
       });
-      // console.log({
-      //   text,
-      //   author : user._id,
-      //   community: null, // Assign communityId if provided, or leave it null for personal account
-      //   isReposted : true
-      // }, user)
   
-      console.log(repostedBy)
       // Update User model
       
-      const repostuser = await User.findOne({id:repostedBy})
       await User.findByIdAndUpdate(repostuser._id, {
         $push: { threads: createdThread._id },
       });

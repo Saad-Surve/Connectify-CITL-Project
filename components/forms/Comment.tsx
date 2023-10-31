@@ -1,6 +1,6 @@
 "use client"
 import {useForm} from "react-hook-form";
-import { Button } from "@/components/ui/button"
+import { Button } from "@nextui-org/react"
 import Image from "next/image";
 import {
   Form,
@@ -17,6 +17,7 @@ import * as z from "zod";
 import { usePathname, useRouter } from "next/navigation";
 import { CommentValidation } from "@/lib/validations/thread";
 import {addCommentToThread} from "@/lib/actions/thread.actions";
+import { useState } from "react";
 
 
 interface Props{
@@ -34,8 +35,12 @@ const Comment = ({threadId, currentUserImg, currentUserId}:Props) => {
     }
   })
 
+  const [isLoading, setIsLoading] = useState(false)
+
   const  onSubmit = async ( values : z.infer<typeof CommentValidation> ) => {
+    setIsLoading(true)
     await addCommentToThread(threadId, values.thread, JSON.parse(currentUserId), pathname);
+    setIsLoading(false)
     form.reset();
   }
   return(
@@ -70,9 +75,9 @@ const Comment = ({threadId, currentUserImg, currentUserId}:Props) => {
             </FormItem>
           )}
         />
-        <Button className="comment-form_btn" type="submit">
-          Reply
-        </Button>
+          <Button className="bg-primary-500 hover:bg-primary-300 " isLoading={isLoading}  type="submit">
+            {!isLoading?'Reply':'Replying...'}
+          </Button>
       </form>
     </Form>
   )

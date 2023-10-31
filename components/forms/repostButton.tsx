@@ -31,8 +31,8 @@ function RepostButton({
         onClick={onOpen}
         src='/assets/repost.svg'
         alt='repost'
-        width={18}
-        height={18}
+        width={24}
+        height={24}
         className='cursor-pointer object-contain'
         
       />
