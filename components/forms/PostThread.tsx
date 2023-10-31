@@ -54,8 +54,8 @@ function PostThread({userId}:{userId:string}){
             text : values.thread,
             author: userId,
             communityId: organization? organization.id : null,
-            path : pathname,
-            createdAt: new Date()
+            path : pathname
+            
          })
          router.push('/')
          setIsLoading(false)

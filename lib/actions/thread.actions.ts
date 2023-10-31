@@ -54,10 +54,9 @@ interface Params {
   communityId: string | null,
   path: string,
   repostedBy? : string,
-  createdAt?: Date,
 }
 
-export async function createThread({ text, author, communityId, path,createdAt }: Params
+export async function createThread({ text, author, communityId, path }: Params
 ) {
   try {
     connectToDB();
@@ -71,7 +70,6 @@ export async function createThread({ text, author, communityId, path,createdAt }
       text,
       author,
       community: communityIdObject, // Assign communityId if provided, or leave it null for personal account
-      createdAt:Date
     });
 
     // Update User model
@@ -259,7 +257,7 @@ export async function repostThread({ text, author, repostedBy, path }: Params
         repostedByUserId:repostuser.id
       });
   
-      // Update User model
+        // Update User model
       
       await User.findByIdAndUpdate(repostuser._id, {
         $push: { threads: createdThread._id },
