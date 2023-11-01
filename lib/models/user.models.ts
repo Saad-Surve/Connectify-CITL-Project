@@ -38,6 +38,26 @@ const userSchema = new mongoose.Schema({
       ref: "Community",
     },
   ],
+  followedAccounts:[
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+  likedPosts:[
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Thread",
+    },
+  ],
+  activity:[
+    {
+      type:{type:String},
+      user:{type:String},
+      username:{type:String}
+    }
+  ]
+
 });
 
 const User = mongoose.models.User || mongoose.model("User", userSchema);

@@ -26,7 +26,10 @@ const threadSchema = new mongoose.Schema({
     ],
     isReposted : Boolean,
     repostedBy:String,
-    repostedByUserId:String
+    repostedByUserId:String,
+    likedBy:[
+        {type:String}
+    ],
 });
 
 const Thread = mongoose.models.Thread || mongoose.model("Thread", threadSchema);

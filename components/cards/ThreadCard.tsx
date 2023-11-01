@@ -34,6 +34,7 @@ interface Props {
   name?:string;
   repostedBy?:string;
   repostedByUserId?:string;
+  likedBy?:string[];
 }
 
 function ThreadCard({
@@ -51,6 +52,7 @@ function ThreadCard({
   name,
   repostedBy,
   repostedByUserId,
+  likedBy
 }: Props) 
 {
 
@@ -104,6 +106,7 @@ function ThreadCard({
                 <LikeThread 
                   threadId={JSON.stringify(id)}
                   currentUserId={currentUserId}
+                  likedBy={likedBy}
                 />
                 <Link href={`/thread/${id}`}>
                   <Image

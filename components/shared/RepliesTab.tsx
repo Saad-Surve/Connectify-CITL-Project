@@ -31,6 +31,12 @@ const RepliesTab = async ({currentUserId, accountId, accountType}: Props) => {
           createdAt={thread.createdAt}
           comments={thread.children}
           isReply
+          isReposted={thread.isReposted}
+          name={result.name}
+          repostedBy={thread.repostedBy}
+          repostedByUserId={thread.repostedByUserId}
+          likedBy={thread.likedBy}
+          
         />
         </>
         ))}

@@ -30,6 +30,7 @@ export default async function Home() {
                     name={post.name}
                     repostedBy={post.repostedBy}
                     repostedByUserId={post.repostedByUserId}
+                    likedBy={post.likedBy}
                   />
               ))}
             </>

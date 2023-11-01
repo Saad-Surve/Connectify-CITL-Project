@@ -3,29 +3,32 @@
 import { useState,experimental_useOptimistic as useOptimistic } from "react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { deleteThread } from "@/lib/actions/thread.actions";
+import { deleteThread, likeThread, unlikeThread } from "@/lib/actions/thread.actions";
 
 interface Props {
   threadId: string;
   currentUserId: string;
-
+  likedBy:string[]|undefined;
 }
 
 function LikeThread({
   threadId,
   currentUserId,
+  likedBy
 }: Props) {
 
-    const [isLiked, setIsLiked] = useState(false)
+    const [isLiked, setIsLiked] = useState(likedBy?.includes(currentUserId))
     const [noOfLikes, setNoOfLikes] = useState(0)
+    const path = usePathname()
 
-
-    const handleLike = () =>{
+    const handleLike = async() =>{
         setIsLiked(!isLiked)
         if(isLiked){
             setNoOfLikes(noOfLikes-1)
+            await unlikeThread(threadId.substring(1,25),currentUserId,path)
         }else{
             setNoOfLikes(noOfLikes+1)
+            await likeThread(threadId.substring(1,25),currentUserId,path)
         }
     }
 
@@ -53,6 +56,7 @@ function LikeThread({
                 />
             )
         }
+        <span className="text-subtle-medium text-gray-500">{likedBy?.length}</span>
     </span>
     
    

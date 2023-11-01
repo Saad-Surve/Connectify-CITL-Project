@@ -1,6 +1,6 @@
 "use client";
 
-import { useState,experimental_useOptimistic as useOptimistic } from "react";
+import { useState} from "react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { deleteThread } from "@/lib/actions/thread.actions";

@@ -230,6 +230,7 @@ export async function addCommentToThread(
     // Add the comment thread's ID to the original thread's children array
     originalThread.children.push(savedCommentThread._id);
     user.replies.push(savedCommentThread._id);
+    user.activity.push({type:'reply',user:user.id,username:user.name})
     await user.save();
     // Save the updated original thread to the database
     await originalThread.save();
@@ -263,9 +264,66 @@ export async function repostThread({ text, author, repostedBy, path }: Params
         $push: { threads: createdThread._id },
       });
 
-
+      user.activity.push({type:'repost',user:author,username:user.name})
+      await user.save()
       revalidatePath(path);
     } catch (error: any) {
       throw new Error(`Failed to create thread: ${error.message}`);
     }
   }
+
+export async function likeThread(threadId: string, userId: string, path: string) {
+  connectToDB();
+
+  try {
+    // Find the thread to be liked
+    const thread = await Thread.findById(threadId);
+    const user = await User.findOne({id:userId});
+    if (!thread) {
+      throw new Error("Thread not found");
+    }
+
+    // Add the user's ID to the thread's likedBy array
+    thread.likedBy.push(user.id);
+    user.likedPosts.push(thread._id)
+    // Save the updated thread to the database
+    await thread.save();
+    await user.save()
+    const author = await User.findOne(thread.author)
+    author.activity.push({type:'like',user:author.id,username:user.name})
+    await author.save()
+    revalidatePath(path);
+  } catch (err) {
+    console.error("Error while liking thread:", err);
+    throw new Error("Unable to like thread");
+  }
+}
+
+export async function unlikeThread(
+  threadId: string,
+  userId: string,
+  path: string
+) {
+  connectToDB();
+
+  try {
+    // Find the thread to be unliked
+    const thread = await Thread.findById(threadId);
+    const user = await User.findOne({id:userId});
+    if (!thread) {
+      throw new Error("Thread not found");
+    }
+
+    // Remove the user's ID from the thread's likedBy array
+    thread.likedBy.pull(user._id);
+    user.likedPosts.pull(thread._id)
+    // Save the updated thread to the database
+    await thread.save();
+    await user.save()
+
+    revalidatePath(path);
+  } catch (err) {
+    console.error("Error while unliking thread:", err);
+    throw new Error("Unable to unlike thread");
+  }
+}

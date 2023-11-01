@@ -41,6 +41,7 @@ const ThreadsTab = async ({currentUserId, accountId, accountType}: Props) => {
           name={result.name}
           repostedBy={thread.repostedBy}
           repostedByUserId={thread.repostedByUserId}
+          likedBy={thread.likedBy}
         />
         ))}
     </section>
