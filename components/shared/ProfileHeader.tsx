@@ -32,11 +32,11 @@ const ProfileHeader = ({
           <div className='flex-1'>
             <h2 className='flex w-full justify-between items-center text-left text-heading text-bold text-light-1'>
               <span>{name}</span>
-              <div className="flex gap-5">
+              <div className="flex flex-col lg:flex-row gap-5">
                 <EditButton 
                   userId={authUserId}
                 />
-                <div className="flex flex-col">
+                <div className="flex lg:flex-col">
                   <span className='text-base-medium text-gray-1'>Followers</span>
                   <span className='text-base-medium text-center'>{followers}</span>
                 </div>

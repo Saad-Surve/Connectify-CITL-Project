@@ -43,7 +43,6 @@ function EditButton({
     <Modal 
         isOpen={isOpen} 
         onOpenChange={onOpenChange}
-        placement="top-center"
       >
         <ModalContent>
           {(onClose) => (
