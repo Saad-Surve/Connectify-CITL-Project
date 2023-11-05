@@ -58,6 +58,7 @@ function RepostButton({
                     setLoading(true)
                     await repostThread({text, repostedBy, communityId:'' , author, path});
                     setLoading(false)
+                    onClose()
                 }}
             >
               {!loading?'Repost': 'Reposting...'}

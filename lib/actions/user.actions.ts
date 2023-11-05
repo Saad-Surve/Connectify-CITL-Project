@@ -208,6 +208,13 @@ export async function followUser(
       currentUser._id,
       { $push: { followedAccounts: followUser._id } }
     );
+    //add to followusers followedby array
+    const followedUser = await User.findByIdAndUpdate(
+      followUser._id,
+      { $push: { followedBy: currentUser._id } }
+    );
+
+
     if (!user) {
       throw new Error(`User with ID ${userId} not found.`);
     }
@@ -225,10 +232,16 @@ export async function unfollowUser(
       connectToDB();
       
       const unfollowUser = await User.findOne({id:unfollowUserId})
+      const user = await User.findOne({id:userId})
       await User.findOneAndUpdate(
       { id: userId },
       { $pull: { followedAccounts: unfollowUser._id } }
-    );
+      //pull userId users id from unfollowuser followedby array
+      );
+      await User.findOneAndUpdate(
+        { id: unfollowUserId },
+        { $pull: { followedBy: user._id } }
+      )
   } catch (error: any) {
     throw new Error(`Failed to unfollow user: ${error.message}`);
   }
@@ -252,5 +265,37 @@ export async function checkFollowUser(
       }
   } catch (error: any) {
     throw new Error(`Failed to check follow user: ${error.message}`);
+  }
+}
+
+// function to get number of followers of a user
+
+export async function noOfFollowers(userId:string){
+  try {
+    connectToDB();
+    const user = await User.findOne({id:userId})
+    return user.followedBy.length
+  } catch (error:any) {
+    throw new Error(`Failed to count no of followers of user: ${error.message}`);
+  }
+}
+
+//function to update user info
+export async function updateUserInfo(
+  userId: string,
+  name: string,
+  bio: string,
+): Promise<void> {
+  try {
+    connectToDB();
+    await User.findOneAndUpdate(
+      { id: userId },
+      {
+        name,
+        bio,
+      }
+    );
+  } catch (error: any) {
+    throw new Error(`Failed to update user info: ${error.message}`);
   }
 }

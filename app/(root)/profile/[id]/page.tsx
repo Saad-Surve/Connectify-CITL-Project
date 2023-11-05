@@ -8,7 +8,7 @@ import ThreadsTab from "@/components/shared/ThreadsTab";
 import ProfileHeader from "@/components/shared/ProfileHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import { fetchUser } from "@/lib/actions/user.actions";
+import { fetchUser, noOfFollowers } from "@/lib/actions/user.actions";
 import RepliesTab from "@/components/shared/RepliesTab";
 
 async function Page({ params }: { params: { id: string } }) {
@@ -18,6 +18,7 @@ async function Page({ params }: { params: { id: string } }) {
   const userInfo = await fetchUser(params.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
 
+  const followers = await noOfFollowers(params.id)
   return (
     <section>
       <ProfileHeader
@@ -27,6 +28,7 @@ async function Page({ params }: { params: { id: string } }) {
         username={userInfo.username}
         imgUrl={userInfo.image}
         bio={userInfo.bio}
+        followers={followers}
       />
 
       <div className='mt-9'>

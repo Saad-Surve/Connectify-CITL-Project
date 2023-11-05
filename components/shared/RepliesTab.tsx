@@ -14,7 +14,7 @@ const RepliesTab = async ({currentUserId, accountId, accountType}: Props) => {
 
   return(
     <section className="mt-9 flex flex-col gap-10">
-      {result.replies.map((thread: any) => (
+      {result.replies.reverse().map((thread: any) => (
         <>
         <ThreadCard
           key={thread._id}

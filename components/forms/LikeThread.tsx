@@ -24,14 +24,15 @@ function LikeThread({
     const handleLike = async() =>{
         setIsLiked(!isLiked)
         if(isLiked){
-            setNoOfLikes(noOfLikes-1)
+            console.log('unliking')
+            // setNoOfLikes(noOfLikes-1)
             await unlikeThread(threadId.substring(1,25),currentUserId,path)
         }else{
             setNoOfLikes(noOfLikes+1)
             await likeThread(threadId.substring(1,25),currentUserId,path)
         }
     }
-
+    
   return (
     <span className="flex items-center gap-3">   
      

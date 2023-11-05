@@ -208,7 +208,6 @@ export async function addCommentToThread(
   path: string
 ) {
   connectToDB();
-
   try {
     // Find the original thread by its ID
     const originalThread = await Thread.findById(threadId);
@@ -216,7 +215,7 @@ export async function addCommentToThread(
     if (!originalThread) {
       throw new Error("Thread not found");
     }
-
+    console.log(originalThread)
     // Create the new comment thread
     const commentThread = new Thread({
       text: commentText,
@@ -230,7 +229,7 @@ export async function addCommentToThread(
     // Add the comment thread's ID to the original thread's children array
     originalThread.children.push(savedCommentThread._id);
     user.replies.push(savedCommentThread._id);
-    user.activity.push({type:'reply',user:user.id,username:user.name})
+    await User.findByIdAndUpdate(originalThread.author,{$push:{activity:{type:'reply',user:user.id,username:user.name,isRead:false}}})
     await user.save();
     // Save the updated original thread to the database
     await originalThread.save();
@@ -264,7 +263,7 @@ export async function repostThread({ text, author, repostedBy, path }: Params
         $push: { threads: createdThread._id },
       });
 
-      user.activity.push({type:'repost',user:author,username:user.name})
+      user.activity.push({type:'repost',user:author,username:repostuser.name,isRead:false})
       await user.save()
       revalidatePath(path);
     } catch (error: any) {
@@ -290,7 +289,7 @@ export async function likeThread(threadId: string, userId: string, path: string)
     await thread.save();
     await user.save()
     const author = await User.findOne(thread.author)
-    author.activity.push({type:'like',user:author.id,username:user.name})
+    author.activity.push({type:'like',user:author.id,username:user.name,isRead:false})
     await author.save()
     revalidatePath(path);
   } catch (err) {
@@ -310,12 +309,13 @@ export async function unlikeThread(
     // Find the thread to be unliked
     const thread = await Thread.findById(threadId);
     const user = await User.findOne({id:userId});
+    console.log(user)
     if (!thread) {
       throw new Error("Thread not found");
     }
 
     // Remove the user's ID from the thread's likedBy array
-    thread.likedBy.pull(user._id);
+    thread.likedBy.pull(user.id);
     user.likedPosts.pull(thread._id)
     // Save the updated thread to the database
     await thread.save();

@@ -54,9 +54,16 @@ const userSchema = new mongoose.Schema({
     {
       type:{type:String},
       user:{type:String},
-      username:{type:String}
+      username:{type:String},
+      isRead:{type:Boolean,default:false}
     }
-  ]
+  ],
+  followedBy:[
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 
 });
 
