@@ -20,7 +20,7 @@ const ProfileHeader = ({
     <div className='flex flex-col w-full justify-start'>
       <div className='flex items-center justify-between'>
         <div className='flex w-full items-center gap-3'>
-          <div className="relative h-20 w-20 object-cover" >
+          <div className="relative w-[30%] aspect-square object-cover" >
             <Image
               src={imgUrl}
               alt="Profile image"
@@ -29,14 +29,16 @@ const ProfileHeader = ({
             />
           </div>
 
-          <div className='flex-1'>
-            <h2 className='flex w-full justify-between items-center text-left text-heading text-bold text-light-1'>
+          <div className='flex w-[70%] justify-between'>
+            <h2 className='flex flex-col w-full justify-center text-left text-heading text-bold text-light-1'>
               <span>{name}</span>
-              <div className="flex flex-col lg:flex-row gap-5">
+              <p className='text-base-medium text-gray-1'>@{username}</p>
+            </h2>
+              <div className="flex flex-col justify-end items-end lg:flex-row gap-5">
                 <EditButton 
                   userId={authUserId}
                 />
-                <div className="flex lg:flex-col">
+                <div className="flex lg:flex-col gap-2">
                   <span className='text-base-medium text-gray-1'>Followers</span>
                   <span className='text-base-medium text-center'>{followers}</span>
                 </div>
@@ -44,8 +46,6 @@ const ProfileHeader = ({
                   userId={authUserId}
                 />
               </div>
-            </h2>
-            <p className='text-base-medium text-gray-1'>@{username}</p>
           </div>
         </div>
       </div>
