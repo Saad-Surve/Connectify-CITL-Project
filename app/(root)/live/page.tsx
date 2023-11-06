@@ -9,22 +9,19 @@ async function Page() {
 
     return(
         <>  
-            <div className="flex flex-col">
-                <span className="text-[1.8rem] font-bold">Current Weather:</span>
+            <div className="flex flex-col mb-20">
+                <span className="text-[1.8rem] font-bold mb-10">Current Weather:</span>
                 <WeatherCard weather={data.weather} />
             </div>
 
-            <div className="flex flex-col ">
-                <span className="text-[1.8rem] font-bold">Current Trending News:</span>
+            <div className="flex flex-col mb-10">
+                <span className="text-[1.8rem] font-bold mb-10">Current Trending News:</span>
                 {data.news.value.map((newsItem:any)=>{
                     return (
                         <div>
                             <NewsCard news={newsItem} />
                         </div>
                     )
-
-                
-                
                 })}
             </div>
         </>

@@ -35,9 +35,12 @@ const ProfileHeader = ({
               <p className='text-base-medium text-gray-1'>@{username}</p>
             </h2>
               <div className="flex flex-col justify-end items-end lg:flex-row gap-5">
+                
+                {accountId === authUserId && (                
                 <EditButton 
                   userId={authUserId}
-                />
+                />)}
+
                 <div className="flex lg:flex-col gap-2">
                   <span className='text-base-medium text-gray-1'>Followers</span>
                   <span className='text-base-medium text-center'>{followers}</span>
