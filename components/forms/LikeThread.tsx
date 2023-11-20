@@ -24,8 +24,6 @@ function LikeThread({
     const handleLike = async() =>{
         setIsLiked(!isLiked)
         if(isLiked){
-            console.log('unliking')
-            // setNoOfLikes(noOfLikes-1)
             await unlikeThread(threadId.substring(1,25),currentUserId,path)
         }else{
             setNoOfLikes(noOfLikes+1)

@@ -215,7 +215,6 @@ export async function addCommentToThread(
     if (!originalThread) {
       throw new Error("Thread not found");
     }
-    console.log(originalThread)
     // Create the new comment thread
     const commentThread = new Thread({
       text: commentText,
@@ -309,7 +308,6 @@ export async function unlikeThread(
     // Find the thread to be unliked
     const thread = await Thread.findById(threadId);
     const user = await User.findOne({id:userId});
-    console.log(user)
     if (!thread) {
       throw new Error("Thread not found");
     }

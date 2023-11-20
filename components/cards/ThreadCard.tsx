@@ -91,13 +91,17 @@ function ThreadCard({
                         {author.name}
                     </h4>
                 </Link>
+                {
+                  !isReposted?
+                
                     <DeleteThread
                         threadId={JSON.stringify(id)}
                         currentUserId={currentUserId}
                         authorId={author.id}
                         parentId={parentId}
                         isComment={isComment}
-                    />
+                    />:''
+                }
             </div>
             <p className='mt-2 text-small-regular text-light-2'>{content}</p>
 
